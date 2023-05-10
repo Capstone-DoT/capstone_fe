@@ -19,6 +19,7 @@ export default function Document() {
         />
         <link rel="apple-touch-icon" href="images/icons/icon-192x192.png"></link>
         <meta name="msapplication-TileColor" content="#FF98BA"></meta>
+        <link href="https://webfontworld.github.io/NanumSquareNeo/NanumSquareNeo.css" rel="stylesheet"></link>
         </Head>
       <body>
         <Main />

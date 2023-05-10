@@ -5,9 +5,12 @@ export default function nav_mob() {
   const router = useRouter()
 
   return (
-    <div className="min-[821px]:hidden fixed bottom-0 w-full border-t border-gray-light bg-white">
+    <>
+    {router.pathname.includes("/scholar") || router.pathname.includes("/contest") || router.pathname.includes("/extra") || router.pathname.includes("/login") || router.pathname.includes("/signup")
+    ? <></>
+    : 
+      <div className="min-[821px]:hidden fixed bottom-0 w-full border-t border-gray-light bg-white">
       <ul className="grid grid-cols-4 justify-stretch pt-2.5 mb-1.5">
-
       {/* 홈 */}
       <li className="grid justify-items-center">
       <Link href="/" className="grid justify-items-center">
@@ -55,8 +58,8 @@ export default function nav_mob() {
 
       {/* 검색 */}
       <li className="grid justify-items-center">
-      <Link href="/search" className="grid justify-items-center">
-      {router.pathname === "/search" ? (
+      <Link href="/search/search" className="grid justify-items-center">
+      {router.pathname.includes ("/search") ? (
         <svg className="w-9 h-9" fill="orange" stroke="orange" strokeWidth={1} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
         </svg>
@@ -65,7 +68,7 @@ export default function nav_mob() {
         <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
         </svg>
         )}
-      {router.pathname === "/search" ? (
+      {router.pathname.includes ("/search") ? (
         <span className="text-orange">검색</span>
         ) : (
         <span className="text-[#9CA3AF]">검색</span>
@@ -94,5 +97,7 @@ export default function nav_mob() {
       </li>
       </ul>
     </div>
+    }
+    </>
   );
 }
