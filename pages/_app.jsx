@@ -14,8 +14,8 @@ export default function App({ Component, pageProps }) {
       <Header></Header>
       {
         router.pathname.includes("content") ?
-        <Component {...pageProps} />
-      : <div className="relative left-[330px] pt-16 px-2 w-[900px] z-0"><Component {...pageProps} /></div>
+          <div className="relative left-[20%] pt-16 px-2 w-[80%] z-0"><Component {...pageProps} /></div>
+          : <div className="relative left-[27%] pt-16 px-2 w-[60%] z-0"><Component {...pageProps} /></div>
       }
       <div className='h-20'></div>
     </>

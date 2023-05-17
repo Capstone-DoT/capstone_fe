@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { signupApi } from '@/pages/api/user'
 
 export default function signup() {
     const [name, setName] = useState('')
@@ -22,7 +23,7 @@ export default function signup() {
     let num = /[0-9]/g
 
     const handleNameChange = (e) => {
-        let newName=e.target.value
+        let newName = e.target.value
         setName(newName)
         if (newName === "") {
             setNameStyle("h-[40px] border border-gray text-black placeholder-gray-dark text-[12px] rounded-lg focus:ring-gray focus:border-gray-dark block w-full p-2.5")
@@ -43,7 +44,7 @@ export default function signup() {
     }
 
     const handleIdChange = (e) => {
-        let newId=e.target.value
+        let newId = e.target.value
         setId(newId)
         if (newId === "") {
             setIdStyle("h-[40px] border border-gray text-black placeholder-gray-dark text-[12px] rounded-lg focus:ring-gray focus:border-gray-dark block w-full p-2.5")
@@ -64,7 +65,7 @@ export default function signup() {
     }
 
     const handlePasswordChange = (e) => {
-        let newPassword=e.target.value
+        let newPassword = e.target.value
         setPassword(newPassword)
         if (newPassword === "") {
             setPasswordStyle("h-[40px] border border-gray text-black placeholder-gray-dark text-[12px] rounded-lg focus:ring-gray focus:border-gray-dark block w-full p-2.5")
@@ -85,7 +86,7 @@ export default function signup() {
     }
 
     const handleCheckChange = (e) => {
-        let newCheck=e.target.value
+        let newCheck = e.target.value
         setCheck(newCheck)
         if (newCheck === "") {
             setCheckStyle("h-[40px] border border-gray text-black placeholder-gray-dark text-[12px] rounded-lg focus:ring-gray focus:border-gray-dark block w-full p-2.5")
@@ -101,42 +102,59 @@ export default function signup() {
         }
     }
 
+    const onSubmitHandler = (e) => {
+        let id = e.target.id.value
+        let password = e.target.password.value
+        api(id, password)
+    }
+
+    const api = async (id, password) => {
+        const response = await signupApi(id, password)
+        !response.data.isSuccess &&
+            setIdStyle("h-[40px] border border-red-500 text-black placeholder-gray-dark text-[12px] rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5")
+        !response.data.isSuccess &&
+            setIdError(<span className="mt-2 text-red-600 text-[12px]">이미 존재하는 아이디입니다</span>)
+        response.data.isSuccess && alert("회원가입이 완료되었습니다!")
+    }
+
 
     return (
-    <>
-    <div className="flex flex-col items-center">
-    <h1 className="font-extrabold text-[35px] text-black mt-5">회원가입</h1>
-    <div className="w-[350px]">
-        <label className="block mt-8 mb-2 ml-1 text-xl font-bold text-black">이름</label>
-        <input type="text" value={name} onChange={handleNameChange}
-        className={namestyle} placeholder="실명을 입력해주세요."></input>
-        {nameError}
-    </div>
-    <div className="w-[350px]">
-        <label className="block mt-8 mb-2 ml-1 text-xl font-bold text-black">출생년도</label>
-        <input type="text" className="h-[40px] border border-gray text-black placeholder-gray-dark text-[12px] rounded-lg focus:ring-gray focus:border-gray-dark block w-full p-2.5" placeholder="4자~17자 이내로 입력해주세요."></input>
-    </div>
-    <div className="w-[350px]">
-        <label className="block mt-8 mb-2 ml-1 text-xl font-bold text-black">아이디</label>
-        <input type="text" value={id} onChange={handleIdChange}
-        className={idstyle} placeholder="4자~17자 이내로 입력해주세요."></input>
-        {idError}
-    </div>
-    <div className="w-[350px]">
-        <label className="block mt-8 mb-2 ml-1 text-xl font-bold text-black">비밀번호</label>
-        <input type="password" value={password} onChange={handlePasswordChange}
-        className={passwordstyle} placeholder="9자 이상을 입력해주세요."></input>
-        {passwordError}
-    </div>
-    <div className="w-[350px]">
-        <label className="block mt-4 mb-2 ml-1 text-xl font-bold text-black">비밀번호 확인</label>
-        <input type="password" value={check} onChange={handleCheckChange}
-        className={checkstyle} placeholder="9자 이상을 입력해주세요."></input>
-        {checkError}
-    </div>
+        <>
+            <form onSubmit={onSubmitHandler}
+                className="flex flex-col items-center">
+                <h1 className="font-extrabold text-[35px] text-black mt-5">회원가입</h1>
+                <div className="w-[350px]">
+                    <label className="block mt-8 mb-2 ml-1 text-xl font-bold text-black">이름</label>
+                    <input name="name" type="text" value={name} onChange={handleNameChange}
+                        className={namestyle} placeholder="실명을 입력해주세요." />
+                    {nameError}
+                </div>
+                <div className="w-[350px]">
+                    <label className="block mt-8 mb-2 ml-1 text-xl font-bold text-black">생년월일</label>
+                    <input name="birth" type="text" className="h-[40px] border border-gray text-black placeholder-gray-dark text-[12px] rounded-lg focus:ring-gray focus:border-gray-dark block w-full p-2.5" placeholder="생년월일 8자리를 입력해주세요."></input>
+                </div>
+                <div className="w-[350px]">
+                    <label className="block mt-8 mb-2 ml-1 text-xl font-bold text-black">아이디</label>
+                    <input name="id" type="text" value={id} onChange={handleIdChange}
+                        className={idstyle} placeholder="4자~17자 이내로 입력해주세요." />
+                    {idError}
+                </div>
+                <div className="w-[350px]">
+                    <label className="block mt-8 mb-2 ml-1 text-xl font-bold text-black">비밀번호</label>
+                    <input name="password" type="password" value={password} onChange={handlePasswordChange}
+                        className={passwordstyle} placeholder="9자 이상을 입력해주세요." />
+                    {passwordError}
+                </div>
+                <div className="w-[350px]">
+                    <label className="block mt-4 mb-2 ml-1 text-xl font-bold text-black">비밀번호 확인</label>
+                    <input type="password" value={check} onChange={handleCheckChange}
+                        className={checkstyle} placeholder="9자 이상을 입력해주세요." />
+                    {checkError}
+                </div>
 
-    <button className="w-[350px] h-14 mt-16 bg-orange rounded-md text-white text-xl">회원가입</button>
-    </div>
-    </>
+                <input type="submit" value="회원가입"
+                    className="w-[350px] h-14 mt-16 bg-orange rounded-md text-white text-xl" />
+            </form>
+        </>
     )
 }
