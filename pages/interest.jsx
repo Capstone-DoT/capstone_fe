@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import List from '@/components/List_interest'
+import List from '@/components/List'
 import Select from '@/components/SelectSort'
 
 export default function interest() {

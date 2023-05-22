@@ -1,28 +1,41 @@
-import {useState} from 'react';
-import ReactDOM from 'react-dom';
-import Modal from 'react-modal';
-
 export default function test(props) {
-  const [modalIsOpen, setIsOpen] = useState(false)
   const { contents } = props
-  const [select, setSelect] = useState(contents[0])
-  const [selectSytle, setSelectStyle] = useState('cursor-pointer hover:font-bold')
 
-  const changeSelect = (e) => {
-    let newSelect = e.target.id
-    setSelect(newSelect)
-    setIsOpen(false);
+  const handleChangeSelect = (e) => {
+
+    if (e.target.value === "최신순") {
+      props.setOrdering("createdAt")
+    }
+    else if (e.target.value === "마감임박순") {
+      props.setOrdering("dday")
+    }
+    else if (e.target.value === "인기순") {
+      props.setOrdering("view_num")
+    }
+    else if (e.target.value === "전체") {
+      props.setType("all")
+    }
+    else if (e.target.value === "장학금") {
+      props.setType("scholarship")
+    }
+    else if (e.target.value === "대외활동") {
+      props.setType("activity")
+    }
+    else if (e.target.value === "공모전") {
+      props.setType("contest")
+    }
   }
+
 
   return (
     <>
-    <select className="bg-gray-50 cursor-pointer border text-[#808080] font-bold border-gray-dark h-10 w-min text-sm rounded-2xl focus:ring-0 focus:border-gray-dark block">
-      {contents && contents.map((content, idx) => (
-        <option key={idx} value={content} onClick={changeSelect} className={selectSytle}>
-          {content}
-        </option>
-      ))}
-    </select>
+      <select onChange={handleChangeSelect} className="bg-gray-50 cursor-pointer border text-[#808080] font-bold border-gray-dark h-10 w-min text-sm rounded-2xl focus:ring-0 focus:border-gray-dark block">
+        {contents && contents.map((content, idx) => (
+          <option key={idx} value={content}>
+            {content}
+          </option>
+        ))}
+      </select>
     </>
   )
 }

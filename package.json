@@ -17,7 +17,10 @@
     "next": "13.3.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-modal": "^3.16.1"
+    "react-infinite-scroll-component": "^6.1.0",
+    "react-intersection-observer": "^9.4.3",
+    "react-modal": "^3.16.1",
+    "react-window": "^1.8.9"
   },
   "devDependencies": {
     "@svgr/webpack": "^7.0.0",
