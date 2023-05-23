@@ -5,6 +5,6 @@ export const signupApi = async(id, password) => {
     formData.append("id", id)
     formData.append("password", password)
     const response = await instance.post('user/signup', formData)
-    console.log(response)
+    console.log(id, password)
     return response
 }

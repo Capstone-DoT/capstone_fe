@@ -33,7 +33,7 @@ export default function Home() {
         </Link>
       </ul>
       <h1 className="font-bold text-xl pt-8 pl-1 text-black">인기 정보</h1>
-      {/* <List></List> */}
+      <List></List>
     </div>
   )
 }

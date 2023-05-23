@@ -1,7 +1,9 @@
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useState } from "react";
 
 export default function nav() {
+    const router = useRouter()
     const [dropdownIsOpen, setIsOpen] = useState(false)
 
     function OpenDropdown() {
@@ -15,7 +17,7 @@ export default function nav() {
         <>
             <nav id="logo-sidebar" className="fixed top-0 left-0 z-40 w-[240px] h-screen pt-10 bg-orange/95 border-r border-orange/20 " aria-label="Sidebar">
                 <div className="h-full px-3 pb-4 overflow-y-auto ">
-                    <ul className="mt-10 space-y-2 font-medium text-[17px] text-white">
+                    <ul className="mt-20 space-y-2 font-medium text-[17px] text-white">
                         <li className="pl-1 hover:bg-[#FF991C] rounded-lg">
                             <Link href="/" className="flex items-center p-2 text-gray-900 rounded-lg">
                                 <svg className="flex-shrink-0 w-8" fill="white" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -68,6 +70,9 @@ export default function nav() {
                             </Link>
                         </li>
                     </ul>
+                    <Link href="/login">
+                        <button className="mt-10 border rounded text-white p-2 px-10 ml-10 text-lg font-bold bg-white/10 hover:bg-white/30">로그인</button>
+                    </Link>
                 </div>
             </nav>
         </>

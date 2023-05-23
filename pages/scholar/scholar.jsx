@@ -8,7 +8,6 @@ export default function scholar(props) {
     const [type, setType] = useState([])
     const [ordering, setOrdering] = useState("createdAt")
     const [search, setSearch] = useState("all")
-    const [pageno, setPageno] = useState(1)
 
     return (
         <>
@@ -18,7 +17,7 @@ export default function scholar(props) {
                     return <Filter setType={setType} type={type} content={content} />
                 })}
             </div>
-            <List ordering={ordering} type={type} search={search} pageno={pageno} ></List>
+            <List ordering={ordering} type={type} search={search} ></List>
         </>
     )
 }

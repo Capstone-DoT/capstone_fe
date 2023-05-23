@@ -6,7 +6,7 @@ export default function search() {
 
   const SearchHandler = (e) => {
     e.preventDefault()
-    router.replace({
+    router.push({
       pathname: '/search/result',
       query: {
         search: e.currentTarget.value

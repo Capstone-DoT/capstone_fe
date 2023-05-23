@@ -102,9 +102,7 @@ export default function signup() {
         }
     }
 
-    const onSubmitHandler = (e) => {
-        let id = e.target.id.value
-        let password = e.target.password.value
+    const onSubmitHandler = () => {
         api(id, password)
     }
 
@@ -115,6 +113,7 @@ export default function signup() {
         !response.data.isSuccess &&
             setIdError(<span className="mt-2 text-red-600 text-[12px]">이미 존재하는 아이디입니다</span>)
         response.data.isSuccess && alert("회원가입이 완료되었습니다!")
+        alert(response.data.message)
     }
 
 
