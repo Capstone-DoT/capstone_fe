@@ -4,19 +4,19 @@ import { signupApi } from '@/pages/api/user'
 export default function signup() {
     const [name, setName] = useState('')
     const [namestyle, setNameStyle] = useState("h-[40px] border border-gray text-black placeholder-gray-dark text-[12px] rounded-lg focus:ring-gray focus:border-gray-dark block w-full p-2.5")
-    const [nameError, setNameError] = useState("")
+    const [nameError, setNameError] = useState(" ")
 
     const [id, setId] = useState('')
     const [idstyle, setIdStyle] = useState("h-[40px] border border-gray text-black placeholder-gray-dark text-[12px] rounded-lg focus:ring-gray focus:border-gray-dark block w-full p-2.5")
-    const [idError, setIdError] = useState("")
+    const [idError, setIdError] = useState(" ")
 
     const [password, setPassword] = useState('')
     const [passwordstyle, setPasswordStyle] = useState("h-[40px] border border-gray text-black placeholder-gray-dark text-[12px] rounded-lg focus:ring-gray focus:border-gray-dark block w-full p-2.5")
-    const [passwordError, setPasswordError] = useState("")
+    const [passwordError, setPasswordError] = useState(" ")
 
     const [check, setCheck] = useState('')
     const [checkstyle, setCheckStyle] = useState("h-[40px] border border-gray text-black placeholder-gray-dark text-[12px] rounded-lg focus:ring-gray focus:border-gray-dark block w-full p-2.5")
-    const [checkError, setCheckError] = useState("")
+    const [checkError, setCheckError] = useState(" ")
 
     let kor = /[ㄱ-ㅎㅏ-ㅣ가-힣]/g
     let eng = /[a-zA-Z]/g
@@ -102,8 +102,12 @@ export default function signup() {
         }
     }
 
-    const onSubmitHandler = () => {
-        api(id, password)
+    const onSubmitHandler = (e) => {
+        e.preventDefault()
+        if (id && password && passwordError === "" && idError == -"" && nameError === "" && checkError === "") {
+            api(id, password)
+        }
+
     }
 
     const api = async (id, password) => {
@@ -113,7 +117,6 @@ export default function signup() {
         !response.data.isSuccess &&
             setIdError(<span className="mt-2 text-red-600 text-[12px]">이미 존재하는 아이디입니다</span>)
         response.data.isSuccess && alert("회원가입이 완료되었습니다!")
-        alert(response.data.message)
     }
 
 
@@ -152,7 +155,7 @@ export default function signup() {
                 </div>
 
                 <input type="submit" value="회원가입"
-                    className="w-[350px] h-14 mt-16 bg-orange rounded-md text-white text-xl" />
+                    className="w-[350px] h-14 mt-16 bg-orange rounded-md text-white text-xl hover:cursor-pointer" />
             </form>
         </>
     )
