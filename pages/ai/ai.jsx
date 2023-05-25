@@ -13,7 +13,7 @@ export default function interest() {
                 <div className='w-2'></div>
                 <Select contents={["최신순", "마감임박순", "인기순"]}></Select>
             </div>
-            <List></List>
+            {/* <List></List> */}
         </>
     )
 }
