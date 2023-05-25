@@ -3,8 +3,10 @@ import Nav_mob from "@/components/Nav_mob"
 import Nav_pc from '@/components/Nav_pc'
 import Header from '@/components/Header'
 import { useRouter } from 'next/router'
+import wrapper from "@/reducer/config";
 
-export default function App({ Component, pageProps }) {
+
+function App({ Component, pageProps }) {
   const router = useRouter()
 
   return (
@@ -20,3 +22,5 @@ export default function App({ Component, pageProps }) {
     </>
   )
 }
+
+export default wrapper.withRedux(App)

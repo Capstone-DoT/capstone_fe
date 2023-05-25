@@ -16,7 +16,7 @@ export default function list(props) {
   const { search } = props
 
 
-  const getContents = async () => {
+  const getContents = async (contents, pageno) => {
     if (router.pathname.includes("scholar")) {
       const response = await scholarapi(type, ordering, search, pageno)
       response.data.isSuccess && setContents([...contents, ...response.data.result])
@@ -42,8 +42,12 @@ export default function list(props) {
   }
 
   useEffect(() => {
-    getContents()
-  }, [type, ordering, search, pageno])
+    getContents(contents, 1)
+  }, [search, pageno])
+  useEffect(() => {
+    console.log(type)
+    getContents([], 1)
+  }, [type, ordering])
 
   useEffect(() => {
     if (inView) {

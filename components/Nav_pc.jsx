@@ -1,16 +1,24 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { loginFalse } from "@/reducer/login";
 
 export default function nav() {
     const router = useRouter()
     const [dropdownIsOpen, setIsOpen] = useState(false)
+    const login = useSelector(state => state.login.isLogin)
+    const dispatch = useDispatch()
 
     function OpenDropdown() {
         if (dropdownIsOpen) {
             setIsOpen(false)
         }
         else setIsOpen(true)
+    }
+
+    const LoginHandler = () => {
+        dispatch(loginFalse())
     }
 
     return (
@@ -70,9 +78,12 @@ export default function nav() {
                             </Link>
                         </li>
                     </ul>
-                    <Link href="/login">
-                        <button className="mt-10 border rounded text-white p-2 px-10 ml-10 text-lg font-bold bg-white/10 hover:bg-white/30">로그인</button>
-                    </Link>
+                    {login
+                        ? <button onClick={LoginHandler} className="mt-10 border rounded text-white p-2 px-10 ml-10 text-lg font-bold bg-white/10 hover:bg-white/30">로그아웃</button>
+                        : <Link href="/login">
+                            <button className="mt-10 border rounded text-white p-2 px-10 ml-10 text-lg font-bold bg-white/10 hover:bg-white/30">로그인</button>
+                        </Link>}
+
                 </div>
             </nav>
         </>

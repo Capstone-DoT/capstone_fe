@@ -4,6 +4,7 @@ import Select from '@/components/SelectSort'
 
 export default function interest() {
 
+
     return (
         <>
             <h1 className="font-extrabold text-2xl text-black m-2 ">AI 맞춤 정보</h1>

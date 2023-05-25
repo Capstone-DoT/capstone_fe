@@ -37,12 +37,7 @@ export const searchapi = async(type, ordering, search) => {
     return response
 }
 
-export const aiapi = async(type, ordering, search, pageno) => {
-    const response = await instance.get('bookmark', {params: {type, ordering, search, pageno }})
-    return response
-}
-
 export const hotapi = async() => {
-    const response = await instance.get('content/scholarship', {params: {ordering:"view_num", pageno: 1 }})
+    const response = await instance.get('content/popular')
     return response
 }

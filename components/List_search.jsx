@@ -24,6 +24,14 @@ export default function list(props) {
                 }
             })
         }
+        else if (content_type === "scholarship") {
+            router.push({
+                pathname: "/scholar/content",
+                query: {
+                    id: e.currentTarget.value
+                }
+            })
+        }
         else {
             router.push({
                 pathname: "/" + content_type + "/content",

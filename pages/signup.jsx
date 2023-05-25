@@ -1,7 +1,10 @@
 import { useState } from 'react'
 import { signupApi } from '@/pages/api/user'
+import { useRouter } from 'next/router'
 
 export default function signup() {
+    const router = useRouter()
+
     const [name, setName] = useState('')
     const [namestyle, setNameStyle] = useState("h-[40px] border border-gray text-black placeholder-gray-dark text-[12px] rounded-lg focus:ring-gray focus:border-gray-dark block w-full p-2.5")
     const [nameError, setNameError] = useState(" ")
@@ -112,11 +115,14 @@ export default function signup() {
 
     const api = async (id, password) => {
         const response = await signupApi(id, password)
-        !response.data.isSuccess &&
+        if (response.data.isSuccess) {
+            alert("회원가입이 완료되었습니다!")
+            router.push("/login")
+        }
+        else {
             setIdStyle("h-[40px] border border-red-500 text-black placeholder-gray-dark text-[12px] rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5")
-        !response.data.isSuccess &&
             setIdError(<span className="mt-2 text-red-600 text-[12px]">이미 존재하는 아이디입니다</span>)
-        response.data.isSuccess && alert("회원가입이 완료되었습니다!")
+        }
     }
 
 
