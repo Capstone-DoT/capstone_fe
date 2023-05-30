@@ -24,7 +24,7 @@ export default function extra_content() {
         const response = await extracontentapi(id)
         response.data.isSuccess && setContents(response.data.result.findResult)
         response.data.isSuccess && setAIContents(response.data.result.AIResult.findResult)
-        if (response.data.result.AIresult.AI === false) {
+        if (response.data.result.AIResult.AI === false) {
             setError(false)
         }
         checkInterest("activity", id)
