@@ -20,6 +20,7 @@ export default function list(props) {
         response.data.isSuccess && setContest(response.data.result.AIResult.contest)
         response.data.isSuccess && setExtra(response.data.result.AIResult.activity)
         setIsLoading(false)
+        console.log(response.data)
     }
 
     const ScholarHandler = (e) => {
@@ -61,7 +62,7 @@ export default function list(props) {
                 : ((type === "scholarship" && scholar.length === 0) || (type === "contest" && contest.length === 0) || (type === "activity" && extra.length === 0)
                     ? <div >
                         <h1 className="text-[100px] absolute top-[350px] left-[40%]">😥</h1>
-                        <h1 className="absolute top-[500px] left-[30%] font-bold text-lg">해당 분야의 추천정보를 찾을 수 없습니다!</h1>
+                        <h1 className="absolute top-[500px] left-[27%] font-bold text-lg">해당 분야의 추천정보를 찾을 수 없습니다!</h1>
                     </div>
                     : <></>)
             }

@@ -5,6 +5,7 @@ import { useRouter } from 'next/router'
 import wrapper from "@/reducer/config";
 
 function App({ Component, pageProps }) {
+
   const router = useRouter()
 
   return (
