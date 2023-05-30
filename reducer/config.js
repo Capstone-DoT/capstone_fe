@@ -3,8 +3,6 @@ import { composeWithDevTools } from "@redux-devtools/extension";
 import thunk from "redux-thunk";
 import { createWrapper } from "next-redux-wrapper";
 import rootReducer from "./";
-import storage from 'redux-persist/lib/storage'
-
 
 const isProduction = process.env.NODE_ENV === "production";
 
