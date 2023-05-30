@@ -58,7 +58,7 @@ export default function contest_content() {
     const checkInterest = async (type, contentId) => {
         const response = await addApi(type, contentId)
         console.log(response.data, "add")
-        if (response.data.isSuccess) {
+        if (response.data.isSuccess || response.data.code === 2000) {
             const res = await rmApi(type, contentId)
             console.log(res.data, "rm")
         }
