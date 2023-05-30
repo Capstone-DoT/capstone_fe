@@ -17,12 +17,16 @@ export default function extra_content() {
     const [activity, setActivity] = useState()
     const [benefit, setBenefit] = useState()
     const [requirement, setRequirement] = useState()
+    const [error, setError] = useState(true)
     const id = String(router.query.id)
 
     const getContents = async () => {
         const response = await extracontentapi(id)
         response.data.isSuccess && setContents(response.data.result.findResult)
-        response.data.isSuccess && setAIContents(response.data.result.AIResult)
+        response.data.isSuccess && setAIContents(response.data.result.AIResult.findResult)
+        if (response.data.result.AIresult.AI === false) {
+            setError(false)
+        }
         checkInterest("activity", id)
         if (randNum === 0) {
             setActivity(<><p>모든 상담은 비대면, 앱으로 진행되며, 셰어즈(멘토)가 상담이 가능한 시간을 앱 내 캘린더에 등록해 놓으면 상담을 받기 원하는 피어즈(학생)이 상담 요청을 보내고, 서로 확인하에 상담 일정이 등록됩니다.</p>
@@ -164,7 +168,7 @@ export default function extra_content() {
                         <div className='mb-8'>
                             <span className='ml-2 p-2 text-white text-lg font-extrabold border-2 bg-orange rounded-xl'>AI 추천</span><span className='ml-4 font-bold text-xl'>이 공모전 어떠세요?</span>
                         </div>
-                        <List AIcontents={AIcontents}></List>
+                        <List AIcontents={AIcontents} error={error}></List>
                     </div>
                 </>
             }

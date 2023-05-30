@@ -17,12 +17,16 @@ export default function scholar_content() {
     const [benefit, setBenefit] = useState()
     const [request, setRequest] = useState()
     const [requirement, setRequirement] = useState()
+    const [error, setError] = useState(true)
     const id = String(router.query.id)
 
     const getContents = async () => {
         const response = await scholarcontentapi(id)
         response.data.isSuccess && setContents(response.data.result.findResult)
-        response.data.isSuccess && setAIContents(response.data.result.AIResult)
+        response.data.isSuccess && setAIContents(response.data.result.AIResult.findResult)
+        if (response.data.result.AIResult.AI === false) {
+            setError(false)
+        }
         checkInterest("scholarship", id)
         if (randNum === 0) {
             setBenefit(<><p>[장학금지급] 최대 3,000 만원</p>
@@ -173,7 +177,7 @@ export default function scholar_content() {
                         <div className='mb-8'>
                             <span className='ml-2 p-2 text-white text-lg font-extrabold border-2 bg-orange rounded-xl'>AI 추천</span><span className='ml-4 font-bold text-xl'>이 장학금 어떠세요?</span>
                         </div>
-                        <List AIcontents={AIcontents}></List>
+                        <List AIcontents={AIcontents} error={error}></List>
                     </div>
                 </>
             }

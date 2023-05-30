@@ -17,12 +17,16 @@ export default function contest_content() {
     const [subject, setSubject] = useState()
     const [benefit, setBenefit] = useState()
     const [requirement, setRequirement] = useState()
+    const [error, setError] = useState(true)
     const id = String(router.query.id)
 
     const getContents = async () => {
         const response = await contestcontentapi(id)
         response.data.isSuccess && setContents(response.data.result.findResult)
-        response.data.isSuccess && setAIContents(response.data.result.AIResult)
+        response.data.isSuccess && setAIContents(response.data.result.AIResult.findResult)
+        if (response.data.result.AIResult.AI === false) {
+            setError(false)
+        }
         checkInterest("contest", id)
         if (randNum === 0) {
             setSubject(<><p>- 퍼포먼스</p>
@@ -158,7 +162,7 @@ export default function contest_content() {
                         <div className='mb-8'>
                             <span className='ml-2 p-2 text-white text-lg font-extrabold border-2 bg-orange rounded-xl'>AI 추천</span><span className='ml-4 font-bold text-xl'>이 공모전 어떠세요?</span>
                         </div>
-                        <List AIcontents={AIcontents}></List>
+                        <List AIcontents={AIcontents} error={error}></List>
                     </div>
                 </>
             }

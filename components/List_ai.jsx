@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 export default function list(props) {
     const { AIcontents } = props
     const router = useRouter()
+    const { error } = props
 
     const ContentsHandler = (e) => {
         let newPath = router.pathname.split("/")
@@ -20,8 +21,8 @@ export default function list(props) {
     return (
         <div className="pl-2">
             {AIcontents.length === 0
-                ? <h1 className="text-gray-dark">유사한 정보를 찾을 수 없습니다 😥</h1>
-                : AIcontents && AIcontents.map((content) => (
+                ? <h1 className="text-gray-dark">이 추천은 유사도가 떨어질 수 잇습니다 😥</h1>
+                : AIcontents.length !== 0 && AIcontents.map((content) => (
                     <button onClick={ContentsHandler} value={content.id} className="w-full text-left">
                         <ul className='mb-4 text-black pl-1'>
                             {content === AIcontents[0] ? <></> : <div className="relative left-[-5%] mt-3 w-full bg-gray/50 h-[1px]"></div>}
