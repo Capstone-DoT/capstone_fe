@@ -103,7 +103,7 @@ export default function nav() {
                     </ul>
                     {login
                         ? <><button onClick={LoginHandler} className="mt-10 border rounded text-white p-2 px-10 ml-10 text-lg font-bold bg-white/10 hover:bg-white/30">로그아웃</button>
-                            {token}</>
+                        </>
                         : <Link href="/login">
                             <button className="mt-10 border rounded text-white p-2 px-10 ml-10 text-lg font-bold bg-white/10 hover:bg-white/30">로그인</button>
                         </Link>}
