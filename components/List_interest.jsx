@@ -48,7 +48,7 @@ export default function list(props) {
     return (
         <>
             {contents.length !== 0 ? contents.map((content) => (
-                <button onClick={e => ContentsHandler(e, content.contentType)} value={content.id} className="w-full text-left">
+                <button onClick={e => ContentsHandler(e, content.contentType)} key={content.id} value={content.id} className="w-full text-left">
                     <div className="relative mt-3 w-full bg-gray/50 h-[1px]"></div>
                     <ul className='mb-4 text-black pl-1 '>
                         <li key={content.type} className="flex justify-start mt-6">
