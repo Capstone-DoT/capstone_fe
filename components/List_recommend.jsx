@@ -3,6 +3,7 @@ import { contentapi } from "@/pages/api/interest";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import Hot from "@/components/List_hot"
+import { useSelector, useDispatch } from "react-redux";
 
 export default function list(props) {
     const router = useRouter()
@@ -12,10 +13,11 @@ export default function list(props) {
     const [isLoading, setIsLoading] = useState()
     const { type } = props
     const { ordering } = props
+    const token = useSelector(state => state.login.setToken)
 
     const getContents = async () => {
         setIsLoading(true)
-        const response = await contentapi(type, ordering)
+        const response = await contentapi(type, ordering, token)
         response.data.isSuccess && setScholar(response.data.result.AIResult.scholarship)
         response.data.isSuccess && setContest(response.data.result.AIResult.contest)
         response.data.isSuccess && setExtra(response.data.result.AIResult.activity)

@@ -4,6 +4,7 @@ import Divide from '@/components/Divideline'
 import { useRouter } from 'next/router'
 import { extracontentapi } from "@/pages/api/contents";
 import { addApi, rmApi, checkApi } from "@/pages/api/interest";
+import { useSelector, useDispatch } from "react-redux";
 
 export default function extra_content() {
     const router = useRouter()
@@ -18,6 +19,7 @@ export default function extra_content() {
     const [benefit, setBenefit] = useState()
     const [requirement, setRequirement] = useState()
     const [error, setError] = useState(true)
+    const token = useSelector(state => state.login.setToken)
     const id = String(router.query.id)
 
     const getContents = async () => {
@@ -62,11 +64,11 @@ export default function extra_content() {
 
     useEffect(() => {
         getContents()
-        checkInterest("scholarship", id)
+        checkInterest("scholarship", id, token)
     }, [id])
 
-    const checkInterest = async (type, contentId) => {
-        const response = await checkApi(type, contentId)
+    const checkInterest = async (type, contentId, token) => {
+        const response = await checkApi(type, contentId, token)
         if (response.data.result.isExist === true) {
             setColor(<svg className="w-14 h-14 absolute right-6 top-40" fill="#FFA12E" stroke="#FFA12E" strokeWidth={1.5} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
@@ -80,11 +82,11 @@ export default function extra_content() {
             setInterest(false)
         }
     }
-    const addInterest = async (type, contentId) => {
-        addApi(type, contentId)
+    const addInterest = async (type, contentId, token) => {
+        addApi(type, contentId, token)
     }
-    const rmInterest = async (type, contentId) => {
-        rmApi(type, contentId)
+    const rmInterest = async (type, contentId, token) => {
+        rmApi(type, contentId, token)
     }
 
     const colorChange = () => {
@@ -93,14 +95,14 @@ export default function extra_content() {
                 <path strokeLinecap="round" strokeLinejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
             </svg>)
             setInterest(false)
-            rmInterest("activity", id)
+            rmInterest("activity", id, token)
         }
         else {
             setColor(<svg className="w-14 h-14 absolute right-6 top-40" fill="#FFA12E" stroke="#FFA12E" strokeWidth={1.5} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
             </svg>)
             setInterest(true)
-            addInterest("activity", id)
+            addInterest("activity", id, token)
         }
     }
 
