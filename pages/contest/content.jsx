@@ -61,7 +61,7 @@ export default function contest_content() {
         checkInterest("contest", id, token)
     }, [id])
 
-    const checkInterest = async (type, contentId,) => {
+    const checkInterest = async (type, contentId, token) => {
         const response = await checkApi(type, contentId, token)
         if (response.data.result.isExist === true) {
             setColor(<svg className="w-14 h-14 absolute right-6 top-40" fill="#FFA12E" stroke="#FFA12E" strokeWidth={1.5} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
