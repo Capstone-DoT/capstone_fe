@@ -14,13 +14,12 @@ export default function list(props) {
 
     const getContents = async () => {
         const response = await contentapi(type, ordering)
-        console.log(response.data.result)
         response.data.isSuccess && setScholar(response.data.result.AIResult.scholarship)
         response.data.isSuccess && setContest(response.data.result.AIResult.contest)
         response.data.isSuccess && setExtra(response.data.result.AIResult.activity)
     }
 
-    const ScholarHandler = () => {
+    const ScholarHandler = (e) => {
         router.push({
             pathname: "/scholar/content",
             query: {
@@ -28,7 +27,7 @@ export default function list(props) {
             }
         })
     }
-    const ContestHandler = () => {
+    const ContestHandler = (e) => {
         router.push({
             pathname: "/contest/content",
             query: {
@@ -36,7 +35,7 @@ export default function list(props) {
             }
         })
     }
-    const ExtraHandler = () => {
+    const ExtraHandler = (e) => {
         router.push({
             pathname: "/extra/content",
             query: {

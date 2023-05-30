@@ -3,7 +3,8 @@ import { useEffect, useState } from 'react'
 import Divide from '@/components/Divideline'
 import { useRouter } from 'next/router'
 import { scholarcontentapi } from "@/pages/api/contents";
-import { addApi, rmApi } from "@/pages/api/interest";
+import { addApi, rmApi, checkApi } from "@/pages/api/interest";
+import Link from "next/link";
 
 export default function scholar_content() {
     const router = useRouter()
@@ -27,16 +28,15 @@ export default function scholar_content() {
         if (response.data.result.AIResult.AI === false) {
             setError(false)
         }
-        checkInterest("scholarship", id)
+
         if (randNum === 0) {
             setBenefit(<><p>[장학금지급] 최대 3,000 만원</p>
                 <p>- 지급 기간 : 석사과정 최대 3년, 석/박사과정 최대 5년</p>
                 <p>- 지급 금액 : 매년 3,000만원</p>
                 <p>* 전년도 학업 성취가 부진하면 중도탈락될 수 있음</p></>)
-            setRequest(<><p>[장학금지급] 최대 3,000 만원</p>
-                <p>- 지급 기간 : 석사과정 최대 3년, 석/박사과정 최대 5년</p>
-                <p>- 지급 금액 : 매년 3,000만원</p>
-                <p>* 전년도 학업 성취가 부진하면 중도탈락될 수 있음</p></>)
+            setRequest(<><p>[온라인접수]</p>
+                <p>- 링크 : <Link href="https://foundation.miraeasset.com/ko/main/index.do">https://foundation.miraeasset.com/ko/main/index.do</Link></p>
+                <p>- 제출 서류 : 공고문 안내 확인</p></>)
             setRequirement(<><p>[전공기준] 사회계열, 인문계열</p>
                 <p>- 미국 대학원에서 인문, 사회계열 전공으로 입학허가를 받거나 받기로 예정된 자 (재학중인 자 포함)</p>
                 <p>[기타조건]</p>
@@ -47,10 +47,10 @@ export default function scholar_content() {
                 <p>- 유형별 장학금액 상이 (공고문 확인)</p>
                 <p>- 타 기관의 장학금과 중복 수혜 가능</p>
                 <p>- 논산시장학회 타 장학금과 중복 수혜 불가</p></>)
-            setRequest(<><p>[장학금지급] 최대 200만원</p>
-                <p>- 유형별 장학금액 상이 (공고문 확인)</p>
-                <p>- 타 기관의 장학금과 중복 수혜 가능</p>
-                <p>- 논산시장학회 타 장학금과 중복 수혜 불가</p></>)
+            setRequest(<><p>[온라인접수]</p>
+                <p>- 홈페이지 : <Link href="https://www.surim.or.kr/kr/">https://www.surim.or.kr/kr/</Link></p>
+                <p>장학사업 → 신규장학생 → 지원신청 참조 → 재단소식 → 공지사항 → 2023학년도 신규장학생 선발안내문 참조</p>
+                <p>- 제출 서류 : 공고문 안내 확인</p></>)
             setRequirement(<><p>[지역기준] 주민등록지, 학교 소재지</p>
                 <p>- 본인 or 부모가 논산시 1년 이상 거주</p>
                 <p>- 논산시 관내 중·고등학교 재학생 or 국내 정규대학교 신입생(or 재학생)</p>
@@ -62,30 +62,32 @@ export default function scholar_content() {
                 <p>- 참여자 교통카드 사용금액(1월 1일 ~ 12월)의 20%를 교통 마일리지로 지원</p>
                 <p>- 연간 10만원 한도 내에서 지급</p>
                 <p>- 2023년 국민취업지원제도, 서울시 청년수당, 서울시 임산부 교통비 지원사업에 참여해 지원금을 받는 자 선발 제외</p></>)
-            setRequest(<><p>[기타혜택] 최대 10 만원</p>
-                <p>- 참여자 교통카드 사용금액(1월 1일 ~ 12월)의 20%를 교통 마일리지로 지원</p>
-                <p>- 연간 10만원 한도 내에서 지급</p>
-                <p>- 2023년 국민취업지원제도, 서울시 청년수당, 서울시 임산부 교통비 지원사업에 참여해 지원금을 받는 자 선발 제외</p></>)
+            setRequest(<><p>[온라인접수]</p>
+                <p>- 링크 : <Link href="https://forms.gle/PRgF4cnZvaYapEY66">https://forms.gle/PRgF4cnZvaYapEY66</Link></p>
+                <p>- 제출 서류 : 스캔 후 신청서 내 업로드</p>
+                <p>* 학력사항 증빙서류, 거주형태 증빙서류, 우대사항 증빙서류 등</p></>)
             setRequirement(<><p>청년, 기타/일반 (만 19세~24세)</p></>)
         }
     }
 
     useEffect(() => {
         getContents()
+        checkInterest("scholarship", id)
     }, [id])
 
     const checkInterest = async (type, contentId) => {
-        const response = await addApi(type, contentId)
-        console.log(response.data, "add")
-        if (response.data.isSuccess || response.data.code === 2000) {
-            const res = await rmApi(type, contentId)
-            console.log(res.data, "rm")
-        }
-        else {
+        const response = await checkApi(type, contentId)
+        if (response.data.result.isExist === true) {
             setColor(<svg className="w-14 h-14 absolute right-6 top-40" fill="#FFA12E" stroke="#FFA12E" strokeWidth={1.5} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
             </svg>)
             setInterest(true)
+        }
+        else {
+            setColor(<svg className="w-14 h-14 absolute right-6 top-40" fill="none" stroke="#E1E1E4" strokeWidth={1.5} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
+            </svg>)
+            setInterest(false)
         }
     }
     const addInterest = async (type, contentId) => {

@@ -12,8 +12,6 @@ export default function interest() {
             <span className='ml-2 font-medium text-sm text-gray-dark'>관심목록에 담긴 정보를 기반으로 추천됩니다 !</span>
             <div className='flex mt-2'>
                 <Select setType={setType} contents={["전체", "장학금", "대외활동", "공모전"]}></Select>
-                <div className='w-2'></div>
-                <Select setOrdering={setOrdering} contents={["최신순", "마감임박순", "인기순"]}></Select>
             </div>
             <List ordering={ordering} type={type}></List>
         </>

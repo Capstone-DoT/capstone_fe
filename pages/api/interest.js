@@ -1,5 +1,10 @@
 import {instance} from "@/pages/api/instance"
 
+export const checkApi = async(contentType, contentId) => {
+    const response = await instance.get('bookmark/check', {params: {contentType, contentId }})
+    return response
+}
+
 export const contentapi = async(type, order) => {
     const response = await instance.get('bookmark', {params: {type, order }})
     return response
