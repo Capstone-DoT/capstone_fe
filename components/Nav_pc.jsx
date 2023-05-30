@@ -16,7 +16,7 @@ export default function nav() {
         }
         else {
             alert("해당 메뉴는 로그인이 필요합니다!")
-            router.push("login")
+            router.push("/login")
         }
     }
     const AILinkHandler = () => {
@@ -25,7 +25,7 @@ export default function nav() {
         }
         else {
             alert("해당 메뉴는 로그인이 필요합니다!")
-            router.push("login")
+            router.push("/login")
         }
     }
 

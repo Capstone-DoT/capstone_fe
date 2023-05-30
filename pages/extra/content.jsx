@@ -23,6 +23,7 @@ export default function extra_content() {
         const response = await extracontentapi(id)
         response.data.isSuccess && setContents(response.data.result.findResult)
         response.data.isSuccess && setAIContents(response.data.result.AIResult)
+        checkInterest("activity", id)
         if (randNum === 0) {
             setActivity(<><p>모든 상담은 비대면, 앱으로 진행되며, 셰어즈(멘토)가 상담이 가능한 시간을 앱 내 캘린더에 등록해 놓으면 상담을 받기 원하는 피어즈(학생)이 상담 요청을 보내고, 서로 확인하에 상담 일정이 등록됩니다.</p>
                 <p>상담은 앱 내 영상통화 기능을 이용해 영상통화 or 통화 or 채팅으로 진행됩니다.</p></>)
@@ -58,30 +59,27 @@ export default function extra_content() {
 
     useEffect(() => {
         getContents()
-        id && checkInterest("activity", id)
     }, [id])
 
     const checkInterest = async (type, contentId) => {
-        const response = await rmApi(type, contentId)
-        console.log(response.data, "rm")
+        const response = await addApi(type, contentId)
+        console.log(response.data, "add")
         if (response.data.isSuccess) {
-            const res = await addApi(type, contentId)
+            const res = await rmApi(type, contentId)
+            console.log(res.data, "rm")
+        }
+        else {
             setColor(<svg className="w-14 h-14 absolute right-6 top-40" fill="#FFA12E" stroke="#FFA12E" strokeWidth={1.5} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
             </svg>)
             setInterest(true)
-            console.log(res.data, "add")
-        }
-        else {
         }
     }
     const addInterest = async (type, contentId) => {
-        const response = await addApi(type, contentId)
-        console.log(response.data, "ADD")
+        addApi(type, contentId)
     }
     const rmInterest = async (type, contentId) => {
-        const response = await rmApi(type, contentId)
-        console.log(response.data, "RM")
+        rmApi(type, contentId)
     }
 
     const colorChange = () => {
