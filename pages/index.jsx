@@ -2,8 +2,8 @@ import Link from "next/link"
 import Search from "@/components/Searchbar"
 import List from "@/components/List_hot"
 
-
 export default function Home() {
+
   return (
     <div className="mt-5">
       <Search initValue=""></Search>

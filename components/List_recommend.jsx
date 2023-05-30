@@ -2,7 +2,7 @@
 import { contentapi } from "@/pages/api/interest";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-
+import Hot from "@/components/List_hot"
 
 export default function list(props) {
     const router = useRouter()
@@ -20,7 +20,6 @@ export default function list(props) {
         response.data.isSuccess && setContest(response.data.result.AIResult.contest)
         response.data.isSuccess && setExtra(response.data.result.AIResult.activity)
         setIsLoading(false)
-        console.log(response.data)
     }
 
     const ScholarHandler = (e) => {
@@ -64,50 +63,60 @@ export default function list(props) {
                         <h1 className="text-[100px] absolute top-[350px] left-[40%]">😥</h1>
                         <h1 className="absolute top-[500px] left-[27%] font-bold text-lg">해당 분야의 추천정보를 찾을 수 없습니다!</h1>
                     </div>
-                    : <></>)
+                    : (type === "all" && scholar.length === 0 && contest.length === 0 && extra.length === 0)
+                        ? <>
+                            <h1 className="font-bold mt-6 text-gray-dark text-lg">관심목록에 담아 놓은 정보가 없으시군요! 이런 정보는 어떠세요?</h1>
+                            <Hot></Hot></>
+                        : <></>)
             }
-            {scholar.length !== 0 && scholar.map((content) => (
-                <button onClick={ScholarHandler} value={content.id} className="w-full text-left">
-                    <div className="relative mt-3 w-full bg-gray/50 h-[1px]"></div>
-                    <ul className='mb-4 text-black pl-1 '>
-                        <li key={content.type} className="flex justify-start mt-6">
-                            <div className='flex justify-center items-center h-6 bg-gray/25 text-orange px-4 mr-1 text-center text-[11px] font-bold rounded-xl'>장학금</div>
-                            <div className='flex justify-center items-center h-6 bg-gray/25 text-orange px-4 mr-1 text-center text-[11px] font-bold rounded-xl'>{content.type === "" ? "기타" : content.type}</div>
-                        </li>
-                        <li key={content.institution} className='mt-3 text-sub text-gray-dark'>{content.institution}</li>
-                        <li key={content.title} className='mt-1 font-bold'>{content.title}</li>
-                        <li key={content.dday} className='mt-2 text-orange text-xs font-bold'>{String(content.dday).includes("-") ? "D + " + String(content.dday).substr(1) : (content.dday === null ? "상시모집" : (content.dday === 0 ? "D - day" : "D - " + content.dday))}</li>
-                    </ul>
-                </button>
-            ))}
-            {contest.length !== 0 && contest.map((content) => (
-                <button onClick={ContestHandler} value={content.id} className="w-full text-left">
-                    <div className="relative mt-3 w-full bg-gray/50 h-[1px]"></div>
-                    <ul className='mb-4 text-black pl-1 '>
-                        <li key={content.type} className="flex justify-start mt-6">
-                            <div className='flex justify-center items-center h-6 bg-gray/25 text-orange px-4 mr-1 text-center text-[11px] font-bold rounded-xl'>공모전</div>
-                            <div className='flex justify-center items-center h-6 bg-gray/25 text-orange px-4 mr-1 text-center text-[11px] font-bold rounded-xl'>{content.type === "" ? "기타" : content.type}</div>
-                        </li>
-                        <li key={content.institution} className='mt-3 text-sub text-gray-dark'>{content.institution}</li>
-                        <li key={content.title} className='mt-1 font-bold'>{content.title}</li>
-                        <li key={content.dday} className='mt-2 text-orange text-xs font-bold'>{String(content.dday).includes("-") ? "D + " + String(content.dday).substr(1) : (content.dday === null ? "상시모집" : (content.dday === 0 ? "D - day" : "D - " + content.dday))}</li>
-                    </ul>
-                </button>
-            ))}
-            {extra.length !== 0 && extra.map((content) => (
-                <button onClick={ExtraHandler} value={content.id} className="w-full text-left">
-                    <div className="relative mt-3 w-full bg-gray/50 h-[1px]"></div>
-                    <ul className='mb-4 text-black pl-1 '>
-                        <li key={content.type} className="flex justify-start mt-6">
-                            <div className='flex justify-center items-center h-6 bg-gray/25 text-orange px-4 mr-1 text-center text-[11px] font-bold rounded-xl'>대외활동</div>
-                            <div className='flex justify-center items-center h-6 bg-gray/25 text-orange px-4 mr-1 text-center text-[11px] font-bold rounded-xl'>{content.type === "" ? "기타" : content.type}</div>
-                        </li>
-                        <li key={content.institution} className='mt-3 text-sub text-gray-dark'>{content.institution}</li>
-                        <li key={content.title} className='mt-1 font-bold'>{content.title}</li>
-                        <li key={content.dday} className='mt-2 text-orange text-xs font-bold'>{String(content.dday).includes("-") ? "D + " + String(content.dday).substr(1) : (content.dday === null ? "상시모집" : (content.dday === 0 ? "D - day" : "D - " + content.dday))}</li>
-                    </ul>
-                </button>
-            ))}
-        </div>
+            {
+                scholar.length !== 0 && scholar.map((content) => (
+                    <button onClick={ScholarHandler} value={content.id} className="w-full text-left">
+                        <div className="relative mt-3 w-full bg-gray/50 h-[1px]"></div>
+                        <ul className='mb-4 text-black pl-1 '>
+                            <li key={content.type} className="flex justify-start mt-6">
+                                <div className='flex justify-center items-center h-6 bg-gray/25 text-orange px-4 mr-1 text-center text-[11px] font-bold rounded-xl'>장학금</div>
+                                <div className='flex justify-center items-center h-6 bg-gray/25 text-orange px-4 mr-1 text-center text-[11px] font-bold rounded-xl'>{content.type === "" ? "기타" : content.type}</div>
+                            </li>
+                            <li key={content.institution} className='mt-3 text-sub text-gray-dark'>{content.institution}</li>
+                            <li key={content.title} className='mt-1 font-bold'>{content.title}</li>
+                            <li key={content.dday} className='mt-2 text-orange text-xs font-bold'>{String(content.dday).includes("-") ? "D + " + String(content.dday).substr(1) : (content.dday === null ? "상시모집" : (content.dday === 0 ? "D - day" : "D - " + content.dday))}</li>
+                        </ul>
+                    </button>
+                ))
+            }
+            {
+                contest.length !== 0 && contest.map((content) => (
+                    <button onClick={ContestHandler} value={content.id} className="w-full text-left">
+                        <div className="relative mt-3 w-full bg-gray/50 h-[1px]"></div>
+                        <ul className='mb-4 text-black pl-1 '>
+                            <li key={content.type} className="flex justify-start mt-6">
+                                <div className='flex justify-center items-center h-6 bg-gray/25 text-orange px-4 mr-1 text-center text-[11px] font-bold rounded-xl'>공모전</div>
+                                <div className='flex justify-center items-center h-6 bg-gray/25 text-orange px-4 mr-1 text-center text-[11px] font-bold rounded-xl'>{content.type === "" ? "기타" : content.type}</div>
+                            </li>
+                            <li key={content.institution} className='mt-3 text-sub text-gray-dark'>{content.institution}</li>
+                            <li key={content.title} className='mt-1 font-bold'>{content.title}</li>
+                            <li key={content.dday} className='mt-2 text-orange text-xs font-bold'>{String(content.dday).includes("-") ? "D + " + String(content.dday).substr(1) : (content.dday === null ? "상시모집" : (content.dday === 0 ? "D - day" : "D - " + content.dday))}</li>
+                        </ul>
+                    </button>
+                ))
+            }
+            {
+                extra.length !== 0 && extra.map((content) => (
+                    <button onClick={ExtraHandler} value={content.id} className="w-full text-left">
+                        <div className="relative mt-3 w-full bg-gray/50 h-[1px]"></div>
+                        <ul className='mb-4 text-black pl-1 '>
+                            <li key={content.type} className="flex justify-start mt-6">
+                                <div className='flex justify-center items-center h-6 bg-gray/25 text-orange px-4 mr-1 text-center text-[11px] font-bold rounded-xl'>대외활동</div>
+                                <div className='flex justify-center items-center h-6 bg-gray/25 text-orange px-4 mr-1 text-center text-[11px] font-bold rounded-xl'>{content.type === "" ? "기타" : content.type}</div>
+                            </li>
+                            <li key={content.institution} className='mt-3 text-sub text-gray-dark'>{content.institution}</li>
+                            <li key={content.title} className='mt-1 font-bold'>{content.title}</li>
+                            <li key={content.dday} className='mt-2 text-orange text-xs font-bold'>{String(content.dday).includes("-") ? "D + " + String(content.dday).substr(1) : (content.dday === null ? "상시모집" : (content.dday === 0 ? "D - day" : "D - " + content.dday))}</li>
+                        </ul>
+                    </button>
+                ))
+            }
+        </div >
     )
 }
