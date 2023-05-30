@@ -12,6 +12,9 @@ export default function test(props) {
     else if (e.target.value === "인기순") {
       props.setOrdering("view_num")
     }
+    else if (e.target.value === "최근 담은 순") {
+      props.setOrdering("new")
+    }
     else if (e.target.value === "전체") {
       props.setType("all")
     }

@@ -27,11 +27,6 @@ export const contestcontentapi = async(id) => {
     return response
 }
 
-export const interestapi = async(type, ordering, search, pageno) => {
-    const response = await instance.get('bookmark', {params: {type, ordering, search, pageno }})
-    return response
-}
-
 export const searchapi = async(type, ordering, search) => {
     const response = await instance.get('content', {params: {type, ordering, search }})
     return response
@@ -41,3 +36,4 @@ export const hotapi = async() => {
     const response = await instance.get('content/popular')
     return response
 }
+

@@ -45,17 +45,17 @@ export default function login() {
 
     const onSubmitHandler = (e) => {
         e.preventDefault()
-        api(id, password)
+        login(id, password)
     }
 
-    const api = async (id, password) => {
+    const login = async (id, password) => {
         const response = await loginApi(id, password)
         if (!response.data.isSuccess) {
             alert("회원정보가 일치하지 않습니다!")
         }
         else if (response.data.isSuccess) {
             alert("로그인이 완료되었습니다!")
-            dispatch(loginTrue())
+            dispatch(loginTrue(response.data.result.token))
             router.push("/")
         }
     }

@@ -11,6 +11,7 @@ export default function list(props) {
   const [contents, setContents] = useState([])
   const [ref, inView] = useInView();
   const [pageno, setPageno] = useState(1);
+  const [viewcount, setViewcount] = useState(0)
   const { type } = props
   const { ordering } = props
   const { search } = props
@@ -42,16 +43,19 @@ export default function list(props) {
   }
 
   useEffect(() => {
-    getContents(contents, 1)
+    getContents(contents, pageno)
   }, [search, pageno])
+
   useEffect(() => {
-    console.log(type)
     getContents([], 1)
   }, [type, ordering])
 
   useEffect(() => {
     if (inView) {
-      setPageno(prevState => prevState + 1)
+      setViewcount(prevState => prevState + 1)
+      if (viewcount >= 1) {
+        setPageno(prevState => prevState + 1)
+      }
     }
   }, [inView])
 
@@ -72,7 +76,6 @@ export default function list(props) {
                 <li key={content.title} className='mt-1 font-bold'>{content.title}</li>
                 <li key={content.dday} className='mt-2 text-orange text-xs font-bold'>{String(content.dday).includes("-") ? "D + " + String(content.dday).substr(1) : (content.dday === null ? "상시모집" : (content.dday === 0 ? "D - day" : "D - " + content.dday))}</li>
               </ul>
-
             </button>
         ))
       } {/* 기간 지난 애들 */}

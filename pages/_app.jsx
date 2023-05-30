@@ -1,5 +1,4 @@
 import '@/styles/globals.css'
-import Nav_mob from "@/components/Nav_mob"
 import Nav_pc from '@/components/Nav_pc'
 import Header from '@/components/Header'
 import { useRouter } from 'next/router'
