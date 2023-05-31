@@ -4,8 +4,29 @@ import { loginApi } from "./api/user";
 import { useDispatch, useSelector } from "react-redux";
 import { loginTrue } from "@/reducer/login";
 import { useRouter } from "next/router";
+// import { loginApi } from "./api/user";
+
+// export async function getServerSideProps(context) {
+//     const response = await loginApi('username', 'password', context);
+//     // ...
+// }
+
+
+// const login = async (id, password) => {
+//     const response = await loginApi(id, password)
+//     if (!response.data.isSuccess) {
+//         alert("회원정보가 일치하지 않습니다!")
+//     }
+//     else if (response.data.isSuccess) {
+//         alert("로그인이 완료되었습니다!")
+//         dispatch(loginTrue(response.data.result.token))
+//         router.push("/")
+//     }
+// }
+
 
 export default function login() {
+
     const dispatch = useDispatch()
     const router = useRouter()
 
@@ -59,7 +80,6 @@ export default function login() {
             router.push("/")
         }
     }
-
 
     return (
         <>

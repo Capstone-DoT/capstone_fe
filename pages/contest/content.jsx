@@ -21,7 +21,7 @@ export default function contest_content() {
     const [error, setError] = useState(true)
     const token = useSelector(state => state.login.setToken)
     const id = String(router.query.id)
-
+    console.log(contents)
     const getContents = async () => {
         const response = await contestcontentapi(id)
         response.data.isSuccess && setContents(response.data.result.findResult)
@@ -29,7 +29,12 @@ export default function contest_content() {
         if (response.data.result.AIResult.AI === false) {
             setError(false)
         }
-        if (randNum === 0) {
+        if (id === "132613" || id === "134918" || id === "127522" || id === "132627" || id === "134183") {
+            setSubject(response.data.result.findResult.ben)
+            setBenefit(response.data.result.findResult.app)
+            setRequirement(response.data.result.findResult.req)
+        }
+        else if (randNum === 0) {
             setSubject(<p>- 대전시 모든 분야의 사회문제 및 지역현안을 해결할 수 있는 아이디어</p>)
             setBenefit(<><p> - 최우수상 : 상금 100만원 외 상장, 입학장학금 900만원 혜택(1팀)</p>
                 <p>- 우수상 : 상장, 입학장학금 400만원 혜택(2팀)</p>

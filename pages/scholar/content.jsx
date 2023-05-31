@@ -31,7 +31,12 @@ export default function scholar_content() {
             setError(false)
         }
 
-        if (randNum === 0) {
+        if (id === "6245" || id === "6119") {
+            setBenefit(response.data.result.findResult.ben)
+            setRequest(response.data.result.findResult.app)
+            setRequirement(response.data.result.findResult.req)
+        }
+        else if (randNum === 0) {
             setBenefit(<><p>[장학금지급] 최대 3,000 만원</p>
                 <p>- 지급 기간 : 석사과정 최대 3년, 석/박사과정 최대 5년</p>
                 <p>- 지급 금액 : 매년 3,000만원</p>

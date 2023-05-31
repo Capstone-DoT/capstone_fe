@@ -7,6 +7,9 @@ import { createStore } from 'redux';
 import { persistStore } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
 import { persistedReducer } from '@/reducer';
+import { Cookies } from 'react-cookie';
+import { useEffect } from 'react'
+
 
 function App({ Component, pageProps }) {
 

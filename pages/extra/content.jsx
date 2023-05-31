@@ -29,7 +29,12 @@ export default function extra_content() {
         if (response.data.result.AIResult.AI === false) {
             setError(false)
         }
-        if (randNum === 0) {
+        if (id === "126747" || id === "134675" || id === "132640") {
+            setActivity(response.data.result.findResult.ben)
+            setRequirement(response.data.result.findResult.app)
+            setBenefit(response.data.result.findResult.req)
+        }
+        else if (randNum === 0) {
             setActivity(<><p>모든 상담은 비대면, 앱으로 진행되며, 셰어즈(멘토)가 상담이 가능한 시간을 앱 내 캘린더에 등록해 놓으면 상담을 받기 원하는 피어즈(학생)이 상담 요청을 보내고, 서로 확인하에 상담 일정이 등록됩니다.</p>
                 <p>상담은 앱 내 영상통화 기능을 이용해 영상통화 or 통화 or 채팅으로 진행됩니다.</p></>)
             setBenefit(<><p>30분 멘토링 건 당 약 7,000원 / 60분 멘토링 건 당 약 14,000원 (원천징수 3.3%)</p>
@@ -153,15 +158,15 @@ export default function extra_content() {
                             </li>
                             <ul className='list-disc m-4 mt-6 marker:text-orange'>
                                 <li>
-                                    <div className='text-lg text-orange font-extrabold mb-2'>공모주제</div>
+                                    <div className='text-lg text-orange font-extrabold mb-2'>활동내용</div>
                                     <div className=''>{activity}</div>
                                 </li>
                                 <li>
-                                    <div className='mt-10 text-lg text-orange font-extrabold mb-2'>시상내역</div>
+                                    <div className='mt-10 text-lg text-orange font-extrabold mb-2'>활동혜택</div>
                                     <div className=''>{benefit}</div>
                                 </li>
                                 <li>
-                                    <div className='mt-10 text-lg text-orange font-extrabold mb-2'>응모대상</div>
+                                    <div className='mt-10 text-lg text-orange font-extrabold mb-2'>지원자격</div>
                                     <div className='mb-10'>{requirement}</div>
                                 </li>
                             </ul>
